@@ -1,0 +1,24 @@
+# Python Cache Files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Local Environment / ID
+.venv/
+venv/
+ENV/
+env/
+
+# Docker Local Mounts / Cache
+.docker/
+docker-compose.override.yml
+
+# IDEs
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
