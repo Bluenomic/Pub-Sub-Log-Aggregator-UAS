@@ -5,7 +5,7 @@
 > **NIM:** 11231031  
 > **Teknologi:** Python (FastAPI, Asyncio), PostgreSQL 16, Redis 7 (Streams)  
 > **Buku Acuan:** Coulouris, G., Dollimore, J., Kindberg, T., & Blair, G. (2012). *Distributed Systems: Concepts and Design* (5th ed.). Pearson Education.
-> **Link Repository:** https://github.com/Bluenomic/Pub-Sub-Log-Aggregator-UAS
+> **Link Repository:** https://github.com/Bluenomic/Pub-Sub-Log-Aggregator-UAS     
 > **Link Video Demo:** https://youtu.be/HFfvibAFUTw
 ---
 

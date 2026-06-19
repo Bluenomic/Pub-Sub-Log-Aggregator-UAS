@@ -4,7 +4,7 @@
 > **Nama:** Imam Dzulvan Muffid  
 > **NIM:** 11231031  
 > **Teknologi:** Python (FastAPI, Asyncio), PostgreSQL 16, Redis 7 (Streams)  
-> **Link Repository:** https://github.com/Bluenomic/Pub-Sub-Log-Aggregator-UAS
+> **Link Repository:** https://github.com/Bluenomic/Pub-Sub-Log-Aggregator-UAS     
 > **Link Video Demo:** https://youtu.be/HFfvibAFUTw
 
 ---
