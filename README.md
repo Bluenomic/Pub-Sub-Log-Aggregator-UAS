@@ -1,10 +1,10 @@
 # Pub-Sub Log Aggregator Terdistribusi dengan Idempotent Consumer, Deduplication, dan Transaksi/Kontrol Konkurensi
 
-> **Topik Proyek:** Implementasi Pub-Sub Log Aggregator Terdistribusi dengan Idempotent Consumer, Deduplication, dan Transaksi/Kontrol Konkurensi  
+> **Topik Proyek:** Implementasi Pub-Sub Log Aggregator Terdistribusi berskala besar menggunakan Python (FastAPI, Asyncio), PostgreSQL 16, dan Redis 7 (Streams)  
 > **Nama:** Imam Dzulvan Muffid  
 > **NIM:** 11231031  
 > **Teknologi:** Python (FastAPI, Asyncio), PostgreSQL 16, Redis 7 (Streams)  
-> **Link Repository:** 
+> **Link Repository:** https://github.com/Bluenomic/Pub-Sub-Log-Aggregator-UAS
 > **Link Video Demo:** https://youtu.be/HFfvibAFUTw
 
 ---

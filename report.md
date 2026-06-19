@@ -5,7 +5,7 @@
 > **NIM:** 11231031  
 > **Teknologi:** Python (FastAPI, Asyncio), PostgreSQL 16, Redis 7 (Streams)  
 > **Buku Acuan:** Coulouris, G., Dollimore, J., Kindberg, T., & Blair, G. (2012). *Distributed Systems: Concepts and Design* (5th ed.). Pearson Education.
-> **Link Repository:** 
+> **Link Repository:** https://github.com/Bluenomic/Pub-Sub-Log-Aggregator-UAS
 > **Link Video Demo:** https://youtu.be/HFfvibAFUTw
 ---
 
@@ -211,18 +211,27 @@ Mitigasi kegagalan pada komponen sistem aggregator ini dirancang sebagai berikut
 Jaminan konsistensi data terdistribusi menentukan bagaimana replika data di berbagai node sinkron (Coulouris et al., 2012, hlm. 751-760). **Eventual Consistency** menjamin bahwa apabila tidak ada pembaruan data baru, seluruh salinan data di berbagai node pada akhirnya akan konvergen ke nilai yang sama.
 
 ```mermaid
-gantti
-    dateFormat  X
-    axisFormat %s
-    
-    section Publisher
-    Kirim Data ke Redis Stream    :active, p1, 0, 2
-    section Redis Broker
-    Menyimpan Pesan di Antrean    :crit, r1, 2, 8
-    section Consumer Worker
-    XREADGROUP & Simpan Postgres  :active, c1, 5, 10
-    section PostgreSQL Storage
-    Data Tersimpan Durabel        :after c1, d1, 10, 11
+sequenceDiagram
+    autonumber
+    participant P as Publisher
+    participant R as "Redis Stream (Broker)"
+    participant W as "Worker (Consumer)"
+    participant DB as "PostgreSQL (Storage)"
+
+    Note over P, R: Step 1: Penulisan Asinkron (Non-blocking)
+    P->>R: XADD log_event
+    R-->>P: ACK (Message ID)
+    Note over P: Publisher langsung sukses (Low Latency)
+
+    Note over R, W: Step 2: Jeda Propagasi (Eventual Consistency Window)
+    W->>R: XREADGROUP (Pull Message)
+    R-->>W: Return log_event
+
+    Note over W, DB: Step 3: Penyimpanan Persisten & Konsisten
+    W->>DB: INSERT INTO processed_events...
+    DB-->>W: Commit OK
+    W->>R: XACK (Acknowledge)
+    Note over DB: Data tersimpan durabel (Konsistensi tercapai)
 ```
 
 Dalam arsitektur sistem ini, eventual consistency terjadi di antara lapisan broker memori (Redis Streams) dan penyimpanan persisten (PostgreSQL). Saat publisher menembakkan event ke Redis Stream, broker langsung merespons sukses kepada publisher. Pada detik tersebut, database PostgreSQL belum menyimpan data tersebut karena adanya jeda waktu transmisi (*propagation delay*) oleh consumer workers. Namun, dalam hitungan milidetik, consumer workers akan mengambil pesan tersebut dan menyimpannya ke PostgreSQL.
